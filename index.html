@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talking Tim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>🐱 Talking Tim 🐱</h1>
+        </header>
+        
+        <div class="character-container">
+            <div class="character" id="tim">
+                <div class="head">
+                    <div class="ears">
+                        <div class="ear left"></div>
+                        <div class="ear right"></div>
+                    </div>
+                    <div class="face">
+                        <div class="eyes">
+                            <div class="eye left">
+                                <div class="pupil"></div>
+                            </div>
+                            <div class="eye right">
+                                <div class="pupil"></div>
+                            </div>
+                        </div>
+                        <div class="nose"></div>
+                        <div class="mouth" id="mouth"></div>
+                        <div class="whiskers">
+                            <div class="whisker w1"></div>
+                            <div class="whisker w2"></div>
+                            <div class="whisker w3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="belly"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="recordBtn" class="control-btn record">
+                <span class="btn-icon">🎤</span>
+                <span class="btn-text">Hold to Record</span>
+            </button>
+            <div class="status" id="status">Tap Tim or hold the mic button!</div>
+        </div>
+        
+        <div class="voice-indicator" id="voiceIndicator">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
