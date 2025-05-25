@@ -165,33 +165,47 @@ class TalkingTim {
     
     async playWithPitchShift(audioUrl) {
         try {
-            const audio = new Audio(audioUrl);
-            audio.playbackRate = 1.5; // Simple pitch shift
-            audio.volume = 0.8;
+            // Fetch and decode the audio data
+            const response = await fetch(audioUrl);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
             
-            audio.onplay = () => {
-                this.mouth.classList.add('talking');
-                this.character.classList.add('bounce');
-            };
+            // Create audio nodes for pitch shifting
+            const source = this.audioContext.createBufferSource();
+            const gainNode = this.audioContext.createGain();
             
-            audio.onended = () => {
+            source.buffer = audioBuffer;
+            source.playbackRate.value = 1.8; // Higher pitch for cartoon effect
+            gainNode.gain.value = 0.8;
+            
+            // Connect the audio graph
+            source.connect(gainNode);
+            gainNode.connect(this.audioContext.destination);
+            
+            // Set up event handlers
+            source.onended = () => {
                 this.mouth.classList.remove('talking');
                 this.character.classList.remove('bounce');
                 this.updateStatus('Tap Tim or hold the mic button!');
                 URL.revokeObjectURL(audioUrl);
             };
             
-            audio.onerror = () => {
-                this.updateStatus('Error playing audio');
-                URL.revokeObjectURL(audioUrl);
-            };
-            
-            await audio.play();
+            // Start animation and play audio
+            this.mouth.classList.add('talking');
+            this.character.classList.add('bounce');
             this.updateStatus('Tim is talking!');
+            
+            // Resume audio context if suspended (mobile requirement)
+            if (this.audioContext.state === 'suspended') {
+                await this.audioContext.resume();
+            }
+            
+            source.start(0);
             
         } catch (error) {
             console.error('Error playing audio:', error);
             this.updateStatus('Error playing audio');
+            URL.revokeObjectURL(audioUrl);
         }
     }
     
@@ -223,4 +237,3 @@ document.addEventListener('touchstart', function() {
         window.audioContext.resume();
     }
 }, { once: true });
-
